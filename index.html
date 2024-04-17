@@ -102,20 +102,16 @@
 
           /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
 
-			var canvas_a = document.getElementById('a'); 
-			var context_a = canvas.getContext("2d"); 
-			context.font = '20pt Calibri'; 
-			context.fillStyle = "black"; 
-			context.fillText("Processed image will go here", 10, 20); 
-			var imageData = context.getImageData(0, 0, 600, 500); 
-			var canvasData = imageData.data;
- 
-		|for{var i = 0; i < canvasData.length; i += 4) {
-			canvasData[i] = 0; 
-			canvasData[i + 1] = 0; 
-		} 
-		
-		context_a.putImageData(imageData, 0, 0);  
+	var imageData = context.getImageData(0, 0, 600, 500); // this is the variable that stores image data with pixels from first canvas
+        var data = imageData.data; // this is the variable that passes the object with the pixel data
+
+
+        for(var i = 0, n = data.length; i < n; i += 4) { // defines for loop starting point as 0, then runs loop through the pixel data of first canvas
+          data[i] = 0; // sets red parameter to 0 so red intensity doesn't show
+          data[i + 1] = 0; // sets green parameter to 0 so green intensity doesn't show
+          }
+
+        context2.putImageData(imageData, 0, 0); // puts transformed (blue) image data back onto second canvas so blue intensity shows 
           
           
         } // end of img.onload
@@ -147,18 +143,24 @@
       </div>
       <div id="messageDisplayArea"></div>
       
-      <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+	    <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
       <script> /* This script initiates the cavas and puts the text on the canvas "myCanvas" */
-        var canvas = document.getElementById('myCanvas');
-        var context = canvas.getContext("2d");
-        context.font = '20pt Calibri';
-        context.fillStyle = "black";
-        context.fillText("Original image will go here", 10, 20);
+        var canvas = document.getElementById('myCanvas'); //calls canvas
+        var context = canvas.getContext("2d"); //dimesnions of canvas
+        context.font = '20pt Calibri'; // font on canvas
+        context.fillStyle = "black"; // color of text on canvas
+        context.fillText("Original image will go here", 10, 20); // text content and coordinates (locations)
       </script>
-	
-	<canvas id="a" width=600 height=500 style="border: 1px solid #d3d3d3";></canvas> 
 
-
+<!-- add second canvas that shows the picture modified -->
+      <canvas id="dataCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas> <!-- dimensions of the canvas -->
+      <script> // code for the second canvas and puts text on second canvas 
+        var canvas2 = document.getElementById('dataCanvas'); //calls canvas
+        var context2 = canvas2.getContext("2d"); //dimensions of canvas
+        context2.font = '20pt Calibri'; // font on canvas
+        context2.fillStyle = "black"; // color of text on canvas
+        context2.fillText("Transformed image will go here", 10, 20); // text content and coordinates (locations) 
+      </script>
 
     </div><!-- /content -->
     <div data-role="footer" data-position="fixed">
